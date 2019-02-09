@@ -21,29 +21,24 @@ def get_store(store_name):
     """
     # your code goes here!
     for store in stores:
-        if store_name != store.name:
-            return False
-        else:
-            return True
+        if store.name == store_name:
+            return store
+    return False
 
 def pick_store():
     """
     prints list of stores and prompts user to pick a store.
     """
-    # your code goes here!
-    print ("available stores are: ")
-    print_stores
-    print ("please, choose a store: ")
-    while True:
-        user_input = input()
-        if user_input == "checkout":
-            return False
-
-        elif get_store(user_input):
-            return get_store(user_input)
+    print_stores()
+    my_store = input("which store would you like ? ('checkout to leave')")
+    while my_store.lower() != "checkout":
+        if get_store(my_store):
+            return get_store(my_store)
         else:
-            print("No store with that name. Please try again")
-
+            my_store = input("invalid! please try again...")
+    return "checkout"
+    
+  
 
 
 def pick_products(cart, picked_store):
@@ -52,14 +47,12 @@ def pick_products(cart, picked_store):
     """
     # your code goes here!
     picked_store.print_products()
-    print ("please feel free to chose anything than type exit to move on")
-    while True:
-        user_input = input
-        if user_input == "exit" or user_input == "back":
-            break
+    my_product = input("what wouldyou like to add to the cart? ('back' to stop)")
+    while my_product.lower() !='back':
         for product in picked_store.products:
-            if user_input == product.name:
+            if product.name == my_product:
                 cart.add_to_cart(product)
+        my_product = input("what else would you like to add? ")
 
 def shop():
     """
@@ -67,13 +60,11 @@ def shop():
     """
     cart = Cart()
     # your code goes here!
-    while True:
-        picked_store = pick_store()
-        if picked_store == False:
-            break
-        else:
-            pick_products(cart, picked_store)
-    cart.checkout()
+    store = pick_store()
+    while store != "checkout":
+        pick_products(cart, store)
+        store = pick_store()
+    cart.checkout() 
 
 def thank_you():
     print("Thank you for shopping with us at %s" % site_name)

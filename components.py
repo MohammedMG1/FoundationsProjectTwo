@@ -18,9 +18,10 @@ class Store():
     def print_products(self):
         """
         Prints all the products of this store in a nice readable format.
-        """
+        """ 
         # your code goes here!
-        print (self.products)
+        for product in self.products:
+            print (product)
 
 
 class Product():
@@ -35,7 +36,7 @@ class Product():
 
     def __str__(self):
         # your code goes here!
-        return "(%d, %d, %d)" % (self.name, self.description, self.price)
+        return "%s | %s | %s" %(self.name, self.description, self.price)
 
 
 class Cart():
@@ -44,14 +45,14 @@ class Cart():
         Initializes a new cart with an empty list of products.
         """
         # your code goes here!
-        self.cart =[]
+        self.products =[]
 
     def add_to_cart(self, product):
         """
         Adds a product to this cart.
         """
         # your code goes here!
-        self.cart.append(product)
+        self.products.append(product)
 
     def get_total_price(self):
         """
@@ -59,7 +60,7 @@ class Cart():
         """
         # your code goes here!
         total = 0
-        for Product in self.cart:
+        for Product in self.products:
             total += Product.price
         return total
 
@@ -68,23 +69,18 @@ class Cart():
         Prints the receipt in a nice readable format.
         """
         # your code goes here!
-        for item in self.cart:
-            print ("you cart will be: %s" % self.cart)
-
-        print ("Your amount comes to: %s" % self.get_total_price())
+        for product in self.products:
+            print(product)
+        print ("Your amount comes to: %s" % (self.get_total_price()))
 
     def checkout(self):
         """
         Does the checkout.
         """
         # your code goes here!
-        print ("your final amount is")
         self.print_receipt()
-        x = input("can you conform the order? Yes/ No")  
-        if x == "Yes":
+        confirm = input("can you conform the order? Yes/ No")   
+        if confirm.lower() =="y":
             print("Your order has been placed.")
-        elif x == "No":
-            print("Your order has been cancelled")
         else:
-            print("Sorry we didnt get that")
-        self.checkout()
+            print("Your order has been cancelled")
